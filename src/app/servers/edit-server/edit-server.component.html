@@ -1,0 +1,27 @@
+<form [formGroup]="editServerDetails">
+  <div class="form-group">
+    <label for="servername" class="control-label">Server Name</label>
+    <input id="servername" class="form-control" formControlName="servername" disabled>
+  </div>
+
+  <div class="form-group" [ngClass]="{'has-error' : FormErrors.serverstatus || FormErrors.editServerDetails}">
+      <label for="serverstatus" class="control-label">Server Status</label>
+        <select class="dropdown form-control" formControlName="serverstatus" (blur)="logValidationMessagestoFormErrors(editServerDetails)">
+          <option id="serverstatus">Online</option>
+          <option id="serverstatus">Offline</option>
+        </select> 
+        <span class="help-block" *ngIf="FormErrors.serverstatus">
+          {{FormErrors.serverstatus}}
+        </span>   
+        <span class="help-block" *ngIf="FormErrors.editServerDetails">
+          {{FormErrors.editServerDetails}}
+        </span>  
+    </div>
+
+    <div class="btn-toolbar">
+        <button class="btn btn-primary" type="submit" (click)="onSave();logValidationMessagestoFormErrors(editServerDetails)">Save</button>
+        <button class="btn btn-primary" (click)="onCancel()">Cancel</button>
+    
+    </div>
+    
+</form>

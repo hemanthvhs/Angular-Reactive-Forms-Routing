@@ -1,0 +1,9 @@
+<h4><strong>Server Details</strong></h4>
+<div class="panel panel-primary">
+  <div class="panel-heading"> {{server.serverName}} </div>
+  <div class="panel-body">Server ID : {{server.serverId}}</div>
+  <div class="panel-body">Server Status : {{server.serverStatus}}</div>
+</div>
+<div>
+  <button class="btn btn-primary" type="button" (click)="onEdit(server.serverId)">Edit</button>
+</div>

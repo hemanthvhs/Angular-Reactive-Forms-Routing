@@ -1,0 +1,135 @@
+<h4>Signup to view the details !</h4>
+<div class="container">
+    <div class="row col-sm-6">
+        <form [formGroup]="signupForm">
+            <div class="form-group" [ngClass]="{'has-error' : FormErrors.username}">
+                <label for="username" class="control-label">Username</label>
+                <input id="username" type="text" class="form-control"
+                    (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="username">
+                <span class="help-block">
+                    {{FormErrors.username}}
+                </span>
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-error' : FormErrors.password}">
+                <label for="password" class="control-label">Password</label>
+                <input id="password" type="password" class="form-control"
+                    (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="password">
+                <span class="help-block">
+                    {{FormErrors.password}}
+                </span>
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-error' : FormErrors.confirmpassword}">
+                <label for="confirmpassword" class="control-label">Confirm Password</label>
+                <input id="confirmpassword" type="password" class="form-control"
+                    (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="confirmpassword">
+                <span class="help-block">
+                    {{FormErrors.confirmpassword}}
+                </span>
+            </div>
+
+            <div class="form-group" [ngClass]="{'has-error' : FormErrors.preferencetype}">
+                <label for="preferencetype" class="control-label">Preference Type</label>
+                <div>
+                    <input id="preferencetype" type="radio" value="email"
+                        (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="preferencetype">Email
+                    <input id="preferencetype" type="radio" value="phone"
+                        (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="preferencetype">Phone
+                    <span class="help-block">
+                        {{FormErrors.preferencetype}}
+                    </span>
+                </div>
+            </div>
+
+            <div formGroupName="contactdetails">
+                <div class="form-group" [ngClass]="{'has-error' : FormErrors.email}">
+                    <label for="email" class="control-label">Email</label>
+                    <input id="email" type="text" class="form-control"
+                        (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="email">
+                    <span class="help-block">
+                        {{FormErrors.email}}
+                    </span>
+                </div>
+
+                <div class="form-group"
+                    [ngClass]="{'has-error' : FormErrors.confirmemail || FormErrors.contactdetails}">
+                    <label for="confirmemail" class="control-label">Confirm Email</label>
+                    <input id="confirmemail" type="text" class="form-control"
+                        (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="confirmemail">
+                    <span class="help-block" *ngIf="FormErrors.confirmemail">
+                        {{FormErrors.confirmemail}}
+                    </span>
+                    <span class="help-block" *ngIf="FormErrors.contactdetails">
+                        {{FormErrors.contactdetails}}
+                    </span>
+                </div>
+
+                <div class="form-group" [ngClass]="{'has-error' : FormErrors.phone}">
+                    <label for="phone" class="control-label">Phone</label>
+                    <input id="phone" type="text" class="form-control"
+                        (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="phone">
+                    <span class="help-block">
+                        {{FormErrors.phone}}
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="well">
+
+                <p class="header">Add New Server Details</p>
+                <button class="btn btn-primary" type="submit" [disabled]="signupForm.get('serverdetails').invalid" (click)="onAddServerDetailsBtnClick()">Add Server</button>
+                <br>
+                <br>
+                <div formArrayName="serverdetails"
+                    *ngFor="let server of signupForm.get('serverdetails').controls;let i=index">
+                    <div formGroupName="{{i}}">
+                        <hr *ngIf=" i > 0">
+                        <div class="form-group">
+                                <input *ngIf=" i > 0" class="pull-right" type="image" src="..\assets\deleteimg.png" (click)="removeFormControl(i)" alt="Delete" width="30" height="30">
+                            </div> <br>
+                        <div class="form-group"
+                            [ngClass]="{'has-error' : server.controls.servername.touched && server.controls.servername.invalid}">
+                            <label attr.for="servername{{i}}" class="control-label">Server Name</label>
+                            <input id="servername{{i}}" type="text" class="form-control"
+                                (blur)="logValidationMessagestoFormErrors(signupForm)" formControlName="servername">
+                            <span class="help-block"
+                                *ngIf="server.controls.servername.touched && server.controls.servername.errors?.required">
+                                Server Name is required
+                            </span>
+                        </div>
+
+                        <div class="form-group"
+                            [ngClass]="{'has-error' : server.controls.serverstatus.touched && server.controls.serverstatus.invalid}">
+                            <label for="serverstatus{{i}}">Server Status</label>
+                            <select class="dropdown form-control" formControlName="serverstatus"
+                                (blur)="logValidationMessagestoFormErrors(signupForm)">
+                                <option id="serverstatus{{i}}">Online</option>
+                                <option id="serverstatus{{i}}">Offline</option>
+                            </select>
+                            <span class="help-block"
+                                *ngIf="server.controls.serverstatus.touched && server.controls.serverstatus.errors?.required">
+                                {{FormErrors.serverstatus}}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </form>
+        <div class="row col-sm-offset-3">
+            <div class="btn-toolbar">
+                <button class="btn btn-primary" type="submit" (click)="onSignupBtnClick()">Signup</button>
+                <button class="btn btn-primary" (click)="onCancelBtnClick()">Cancel</button>
+
+            </div>
+        </div>
+
+        <br><br>
+    </div>
+
+</div>
